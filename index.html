@@ -513,11 +513,12 @@
                             <th>Thu (k)</th>
                             <th>Chi (k)</th>
                             <th>Số dư (k)</th>
+                            <th>Hành động</th>
                         </tr>
                     </thead>
                     <tbody id="ledgerBody">
                         <tr>
-                            <td colspan="6" class="empty-state" style="padding: 40px 20px;">Chưa có dữ liệu</td>
+                            <td colspan="7" class="empty-state" style="padding: 40px 20px;">Chưa có dữ liệu</td>
                         </tr>
                     </tbody>
                 </table>
@@ -1014,7 +1015,7 @@
             if (!ledger.length) {
                 tbody.innerHTML = `
                     <tr>
-                        <td colspan="6" class="empty-state" style="padding: 40px 20px;">Chưa có dữ liệu</td>
+                        <td colspan="7" class="empty-state" style="padding: 40px 20px;">Chưa có dữ liệu</td>
                     </tr>
                 `;
                 return;
@@ -1044,11 +1045,22 @@
                         <td class="money positive">${thuText}</td>
                         <td class="money negative">${chiText}</td>
                         <td class="money ${balanceClass}">${balanceText}</td>
+                        <td><button class="delete-btn" onclick="deleteLedgerEntry(${item.id})">Xóa</button></td>
                     </tr>
                 `;
             }).join('');
 
             tbody.innerHTML = rowsHtml;
+        }
+
+
+        function deleteLedgerEntry(id) {
+            if (!confirm('Xóa dòng thu/chi này?')) return;
+            ledger = ledger.filter(item => item.id !== id);
+            saveData();
+            renderLedger();
+            showNotification('Đã xóa dòng sổ quỹ', 'success');
+            autoSync();
         }
 
         function updateRankingMoney() {
@@ -1317,6 +1329,7 @@
         window.deleteMatch = deleteMatch;
         window.updatePaymentList = updatePaymentList;
         window.addLedgerEntry = addLedgerEntry;
+        window.deleteLedgerEntry = deleteLedgerEntry;
 
         window.exportData = function() {
             const data = JSON.stringify({ members, schedules, matches, ledger }, null, 2);
