@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>CHÀO MỪNG BẠN ĐẾN VỚI CLB PICKLEBALL ALI33 - VIỆT TRÌ</title>
+<title>CHÀO MỪNG BẠN ĐẾN VỚI CLB PICKLE-F  </title>
 <style>
 :root {
   --color-primary: #208791;
@@ -376,7 +376,7 @@ h3 { font-size: 14px; margin: 16px 0 8px 0; color: var(--color-text); }
 <div class="container">
 
 <header>
-<h1>🏓 Quản Lý CLB Ali33 Pickleball</h1>
+<h1>🏓 Quản Lý CLB Pickle - F</h1>
 <p>Bảng tính tiền và xếp hạng của CLB</p>
 </header>
 
@@ -963,11 +963,11 @@ function updatePaymentList() {
     const pair2Players = m.pair2.split(' - ').map(x => x.trim()).filter(x => x !== 'Chưa xác định');
     
     if (m.result1 === 'win') {
-      pair1Players.forEach(p => playerMoney[p] = (playerMoney[p] || 0) + 50);
-      pair2Players.forEach(p => playerMoney[p] = (playerMoney[p] || 0) - 50);
+      pair1Players.forEach(p => playerMoney[p] = (playerMoney[p] || 0) + 0);
+      pair2Players.forEach(p => playerMoney[p] = (playerMoney[p] || 0) - 20);
     } else {
-      pair2Players.forEach(p => playerMoney[p] = (playerMoney[p] || 0) + 50);
-      pair1Players.forEach(p => playerMoney[p] = (playerMoney[p] || 0) - 50);
+      pair2Players.forEach(p => playerMoney[p] = (playerMoney[p] || 0) + 0);
+      pair1Players.forEach(p => playerMoney[p] = (playerMoney[p] || 0) - 20);
     }
   });
   
@@ -1006,23 +1006,23 @@ function updateRankingMoney() {
     if (m.result1 === 'win') {
       pair1Players.forEach(p => {
         playerMoney[p] = playerMoney[p] || { money: 0, matches: 0 };
-        playerMoney[p].money += 50;
+        playerMoney[p].money += 0;
         playerMoney[p].matches++;
       });
       pair2Players.forEach(p => {
         playerMoney[p] = playerMoney[p] || { money: 0, matches: 0 };
-        playerMoney[p].money -= 50;
+        playerMoney[p].money -= 20;
         playerMoney[p].matches++;
       });
     } else {
       pair2Players.forEach(p => {
         playerMoney[p] = playerMoney[p] || { money: 0, matches: 0 };
-        playerMoney[p].money += 50;
+        playerMoney[p].money += 0;
         playerMoney[p].matches++;
       });
       pair1Players.forEach(p => {
         playerMoney[p] = playerMoney[p] || { money: 0, matches: 0 };
-        playerMoney[p].money -= 50;
+        playerMoney[p].money -= 20;
         playerMoney[p].matches++;
       });
     }
@@ -1157,7 +1157,7 @@ function updateRankingScore() {
 async function manualSaveFirebase() {
   setSyncLoading(true);
   try {
-    await set(ref(database, 'Ali33'), {
+    await set(ref(database, 'Pickle-F'), {
       members,
       schedules,
       matches,
@@ -1176,13 +1176,13 @@ async function manualSaveFirebase() {
 async function manualLoadFirebase() {
   setSyncLoading(true);
   try {
-    const snapshot = await get(ref(database, 'Ali33'));
+    const snapshot = await get(ref(database, 'Pickle-F'));
     if (snapshot.exists()) {
       const data = snapshot.val();
       members = data.members || [];
       schedules = data.schedules || [];
       matches = data.matches || [];
-      adminPassword = data.adminPassword || 'Ali33';
+      adminPassword = data.adminPassword || 'Pickle-F';
       saveData();
       localStorage.setItem('adminPassword', adminPassword);
       
@@ -1208,7 +1208,7 @@ async function manualLoadFirebase() {
 
 async function autoSync() {
   try {
-    await set(ref(database, 'Ali33'), {
+    await set(ref(database, 'Pickle-F'), {
       members,
       schedules,
       matches,
@@ -1255,7 +1255,7 @@ window.exportData = function() {
   const url = URL.createObjectURL(blob);
   const a = document.createElement('a');
   a.href = url;
-  a.download = 'Ali33-data.json';
+  a.download = 'Pickle-F-data.json';
   a.click();
   showNotification('✅ Tải về thành công!', 'success');
 };
